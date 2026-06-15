@@ -1,0 +1,36 @@
+services:
+  gateway:
+    build: ./microservices/gateway
+    ports:
+      - "5070:5070"
+    container_name: veebipood-gateway
+    environment:
+      - PORT=5070
+    depends_on:
+      - users
+      - products
+      - orders
+
+  users:
+    build: ./microservices/users
+    ports:
+      - "5051:5051"
+    container_name: veebipood-users
+    environment:
+      - PORT=5051
+
+  products:
+    build: ./microservices/products
+    ports:
+      - "5052:5052"
+    container_name: veebipood-products
+    environment:
+      - PORT=5052
+
+  orders:
+    build: ./microservices/orders
+    ports:
+      - "5053:5053"
+    container_name: veebipood-orders
+    environment:
+      - PORT=5053

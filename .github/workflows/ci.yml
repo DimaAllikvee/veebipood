@@ -20,13 +20,13 @@ jobs:
           node-version: '20'
 
       - name: Paigalda sõltuvused
-        run: npm install
+        run: cd monolith && npm install
 
       - name: Käivita rakendus
-        run: node src/server.js &
+        run: cd monolith && node src/server.js &
 
       - name: Oota kuni server käivitub
         run: sleep 3
 
       - name: Käivita testid
-        run: node src/test.js
+        run: cd monolith && node src/test.js
