@@ -84,6 +84,18 @@ Rakenduses on kaks viga mida pead parandama (vead on juba parandatud!):
 4. **Mis arhitektuuri kasutaksid kui rakendus peaks teenindama 1 miljonit kasutajat?**
    Mikroteenuseid (Microservices). Süsteem tuleks jagada eraldi väikesteks tükkideks (näiteks eraldi teenus toodetele ja tellimustele), et need peaksid vastu suurele koormusele. Samuti lisaksin päris andmebaasid.
 
+## Uus Mikroteenuste Arhitektuur
+
+Projekt on nüüd refaktoreeritud nii, et vana monoliit asub kaustas `monolith/` ja uus arhitektuur kaustas `microservices/`.
+
+Uus lahendus koosneb neljast eraldi konteinerist:
+1. **Gateway** (port 5070): Ühendab API-d kokku. Kui kasutaja küsib `/api/products`, suunab Gateway selle Products mikroteenusesse.
+2. **Users** (port 5051): Haldab kasutajaid ja sisselogimist.
+3. **Products** (port 5052): Hoiab tooteid ja tegeleb laoseisuga.
+4. **Orders** (port 5053): Võtab vastu tellimusi, kontrollides taustal üle sisemise Docker-võrgu laoseisu (`products` teenuselt) ning kasutaja õiguseid (`users` teenuselt).
+
+Mikroteenuste vaheline suhtlus toimub lokaalselt üle HTTP-päringute (`fetch()`), mis imiteerib suuremahulise ja hajutatud arhitektuuriga rakenduse tööpõhimõtet.
+
 ## GitHub Actions
 
 GitHub Actions on seadistatud failis `.github/workflows/ci.yml`. See on automaatne CI (Continuous Integration) pipeline, mis käivitub iga kord, kui kood lükatakse (push) `main` harusse või tehakse Pull Request.
