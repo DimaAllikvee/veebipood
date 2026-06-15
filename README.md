@@ -67,16 +67,16 @@ Rakenduses on kaks viga mida pead parandama (vead on juba parandatud!):
 ## Arhitektuur
 
 1. **Mis arhitektuur see rakendus kasutab?**
-   Rakendus kasutab monoliitset klient-server API arhitektuuri ja REST arhitektuuri stiili. Samuti järgib see MVC (Model-View-Controller) stiilis jaotuse põhimõtteid: ruuterid toimivad kontrolleritena (Controller) ja `data.js` täidab mudeli (Model) rolli.
+   Monoliitne arhitektuur (kõik kood on ühes tükis) ning REST API.
 
 2. **Millest sa seda järeldad?**
-   Kogu kood töötab ühesainsas Node.js protsessis (`server.js`) ega ole jaotatud erinevateks sõltumatuteks teenusteks. Koodi struktuur on jagatud loogilistesse kaustadesse: `src/routes` sisaldab endpointide loogikat ja suunamist, ning `src/data.js` hoolitseb andmete säilitamise eest.
+   Kogu süsteem jookseb ühest failist (`server.js`) ning pole jaotatud erinevateks sõltumatuteks programmideks või teenusteks. 
 
 3. **Miks see arhitektuur on siin õige valik?**
-   Monoliitne arhitektuur on suurepärane valik väikeste projektide, laborite ja prototüüpide jaoks. Seda on lihtne käivitada, testida ja arendada. See ei vaja keerulist DevOps seadistust, võrguliikluse haldamist ega mitme andmebaasi sünkroniseerimist (erinevalt mikroteenustest).
+   Sest projekt on väike. Seda on lihtne ja kiire arendada, testida ning käivitada. 
 
 4. **Mis arhitektuuri kasutaksid kui rakendus peaks teenindama 1 miljonit kasutajat?**
-   1 miljoni kasutaja teenindamiseks kasutaksin Mikroteenuste (Microservices) arhitektuuri. Rakendus jagataks eraldi teenusteks (nt Autentimisteenus, Tootekataloogi teenus, Tellimuste teenus), mida saab sõltumatult skaleerida. Andmed viidaks päris andmebaasidesse (nt PostgreSQL relatsiooniliste andmete ja Redis vahemällu puhverdamise jaoks). Liikluse jaotamiseks lisataks koormusjaoturid (Load Balancers).
+   Mikroteenuseid (Microservices). Süsteem tuleks jagada eraldi väikesteks tükkideks (näiteks eraldi teenus toodetele ja tellimustele), et need peaksid vastu suurele koormusele. Samuti lisaksin päris andmebaasid.
 
 ## GitHub Actions
 
