@@ -11,14 +11,20 @@ See on lihtne Node.js ja Express.js baasil loodud e-poe (veebipoe) backend API r
 
 ## Käivitamine
 
-Dockeriga (soovitatud):
-1. Klooni repositoorium
-2. Käivita: `docker compose up --build -d`
-3. Rakendus (API) on saadaval pordil 3000: `http://localhost:3000`
+Selles projektis on nüüd nii algne **Monoliit** kui ka uus **Mikroteenuste** arhitektuur. 
 
-Ilma Dockerita:
-1. Paigalda sõltuvused: `npm install`
-2. Käivita server: `node src/server.js` (või `npm start`)
+**Mikroteenuste käivitamine (Soovitatud):**
+1. Veendu, et oled projekti peakaustas.
+2. Käivita: `docker compose -f docker-compose.microservices.yml up --build -d`
+3. Rakendus (Gateway) on saadaval pordil 5070: `http://localhost:5070`
+4. Seiskamiseks: `docker compose -f docker-compose.microservices.yml down`
+
+**Vana Monoliidi käivitamine:**
+1. Veendu, et oled projekti peakaustas.
+2. Käivita Dockeriga: `docker compose -f docker-compose.monolith.yml up -d`
+3. Monoliit on saadaval pordil 3000: `http://localhost:3000`
+
+*(Kui soovid monoliiti käivitada ilma Dockerita, mine kausta `monolith/`, tee `npm install` ja käivita `node src/server.js`)*.
 
 ## Testikasutajad
 
